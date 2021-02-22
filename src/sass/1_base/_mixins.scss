@@ -1,0 +1,23 @@
+%flex {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flexJCSB {
+    @extend %flex;
+    justify-content: space-between;
+}
+
+
+@mixin flex($ai: center,$jc: center) {
+    @extend %flex;
+    align-items: $ai;
+    justify-content: $jc;
+}
+
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
