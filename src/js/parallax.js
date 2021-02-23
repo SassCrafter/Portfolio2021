@@ -29,8 +29,8 @@ export default class {
         const layers = wrapper.querySelectorAll(this.nameSpaces.layers);
         layers.forEach((layer) => {
             const depth = layer.getAttribute(this.nameSpaces.depth);
-            const itemX = x / (+depth * 1000);
-            const itemY = y / (+depth * 1000);
+            const itemX = x / (+depth * 300);
+            const itemY = y / (+depth * 300);
             console.log(`x: ${x}, y: ${y}, depth: ${+depth}`);
             layer.style.transform = `translate(${itemX}%, ${itemY}%)`;
         });

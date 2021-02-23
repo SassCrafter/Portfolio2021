@@ -45,7 +45,17 @@ img {
 
 .section {
     width: 100%;
+    height: 100vh;
     padding: 2rem 0;
+}
+
+.flex {
+    height: 100%;
+    display: flex;
+
+    &-ai-center {
+        align-items: center;
+    }
 }
 
 // Text 
@@ -98,5 +108,10 @@ img {
         &::after {
             bottom: -4rem;
         }
+    }
+}
+@include mq(900px) {
+    .xlarge {
+        font-size: 6rem;
     }
 }
