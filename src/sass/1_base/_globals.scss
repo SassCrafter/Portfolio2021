@@ -30,6 +30,10 @@ ul {
     list-style: none;
 }
 
+img {
+    max-width: 100%;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -38,6 +42,61 @@ ul {
     overflow: hidden;
 }
 
-.icons {
-    display: none;
+
+.section {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+// Text 
+.xlarge {
+    font-size: 4.5rem;
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+}
+
+.lines-bottom {
+    position: relative;
+    margin-bottom: 3.5rem;
+
+    &::before,
+    &::after {
+        content: '';
+        width: 6rem;
+        height: 2px;
+        background-color: $primary-color;
+        position: absolute;
+        left: 0;    
+    }
+
+    &::before {
+        bottom: -1rem;
+    }
+    &::after {
+        bottom: -2rem;
+        left: 3rem;
+    }
+}
+
+@include mq(768px) {
+    .container {
+        padding: 0 3rem;
+    }
+    .xlarge {
+        font-size: 5rem;
+    }
+    .lines-bottom {
+        margin-bottom: 6rem;
+        &::before,
+        &::after {
+            width: 10rem;
+            height: 4px;
+        }
+        &::before {
+            bottom: -2rem;
+        }
+        &::after {
+            bottom: -4rem;
+        }
+    }
 }

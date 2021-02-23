@@ -19,6 +19,9 @@
 		a {
 			font-size: 2rem !important;
 		}
+		@include mq(768px) {
+			display: none;
+		}
 	}
 
 	a {
@@ -30,5 +33,10 @@
 		text-transform: uppercase;
 		color: $text-color;
 		transform-origin: center bottom;
+		//font-family: $font-inknut;
+
+		@include mq(768px) {
+			font-size: 6.6rem;
+		}
 	}
 }
