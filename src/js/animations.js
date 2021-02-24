@@ -32,12 +32,6 @@ const closeMenu = (menuEl) => {
 
 const revealImage = (image, imageCoverSelector, elsToSlide) => {
 	const imageCovers = image.querySelectorAll(imageCoverSelector);
-	// anime({
-	// 	targets: imageCovers,
-	// 	translateX: window.innerWidth,
-	// 	duration: 800,
-	// 	easing: 'easeInOutExpo'
-	// });
 	const tl = anime.timeline({
 		duration: DURATION,
 	 	easing: 'easeInOutQuad',
@@ -45,16 +39,22 @@ const revealImage = (image, imageCoverSelector, elsToSlide) => {
 	tl
 	.add({
 		targets: imageCovers[0],
-		scaleX: [0,1],
-		translateX: {
-			value: window.innerWidth,
-			delay: 400,
-		}
+		scaleX: [0, 1],
 	})
 	.add({
+		targets: imageCovers,
+		translateX: '100%',
+	})
+	.add({
+		targets: image.querySelector('img'),
+		opacity: 1,
+		duration: 50,
+	}, `-=${DURATION}`)
+	.add({
 		targets: elsToSlide,
-		translateX: 0
+		translateX: ['-100%', 0]
 	});
+	return tl;
 }
 
 const slideFromLeft = (elements) => {

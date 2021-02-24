@@ -5,6 +5,20 @@
     display: flex;
     justify-content: center;
 
+    @include mq(768px) {
+        justify-content: flex-end;
+        align-items: center;
+
+        .btn-wrap {
+            padding-top: 3rem;
+            justify-content: flex-start;
+        }
+    }
+
+    .btn {
+        pointer-events: initial;
+    }
+
     .title {
         width: 100%;
         position: absolute;
@@ -12,10 +26,20 @@
         left: 0;
         z-index: 20;
         overflow: hidden;
+        pointer-events: none;
+
+        @include mq(768px) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
         &__text {
             font-size: 5rem;
             font-weight: 400;
+
+            @include mq(768px) {
+                font-size: 9rem;
+            }
         }
     }
 
@@ -24,19 +48,22 @@
         width: 90%;
         height: 60%;
         margin-top: 6rem;
-        // background-image: url('../../public/images/section-img/work.jpg');
-        // background-repeat: no-repeat;
-        // background-size: cover;
-        // background-position: center;
+
+        @include mq(768px) {
+            width: 70%;
+            height: 80%;
+            margin-top: 0;
+        }
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
+            opacity: 0;
         }
 
         &--over {
-            //transform: translateX(10rem);
             position: relative;
             overflow: hidden;
             .image__cover {
@@ -45,12 +72,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                //opacity: 0;
-                
                 &:nth-child(3) {
                     width: 100%;
                     background-color: $img-overlay-color;
-                    //display: none;
+                    display: none;
                 }
                 &:nth-child(2) {
                     width: 100%;

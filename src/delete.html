@@ -1,0 +1,160 @@
+<!--
+
+// JS
+
+const SCROLL_SPEED = 1200;
+let prevAnimation;
+
+const moonParallax = new Parallax({
+    wrapper: '.js-parallax-moon',
+    layers: '.moon__layer',
+});
+
+// Initialize fullpage js
+const fullPage = new fullpage('#fullpage', {
+    scrollingSpeed: SCROLL_SPEED,
+    recordHistory: false,
+    easing: 'easeIn',
+    onLeave(origin, destination, direction) {
+    	if (prevAnimation) {
+    		setTimeout(() => {
+    			prevAnimation.seek(0)
+    		},SCROLL_SPEED);
+    	}
+    },
+
+    afterLoad(origin, destination, direction) {
+        const section = destination.item;
+        const imageElement = section.querySelector('.image--over');
+        const elementsToSlide = section.querySelectorAll('.js-slide-left');
+        if (imageElement) {
+            prevAnimation = revealImage(imageElement, '.image__cover', elementsToSlide);
+        }
+        // if (elementsToSlide) {
+        //     slideFromLeft(elementsToSlide);
+        // }
+    }
+});
+
+// REVEAL IMAGE
+const revealImage = (image, imageCoverSelector, elsToSlide) => {
+	const imageCovers = image.querySelectorAll(imageCoverSelector);
+	const tl = anime.timeline({
+		duration: DURATION,
+	 	easing: 'easeInOutQuad',
+	});
+	tl
+	.add({
+		targets: imageCovers[0],
+		scaleX: [0, 1],
+	})
+	.add({
+		targets: imageCovers,
+		translateX: '100%',
+	})
+	.add({
+		targets: image.querySelector('img'),
+		opacity: 1,
+		duration: 50,
+	}, `-=${DURATION}`)
+	.add({
+		targets: elsToSlide,
+		translateX: ['-100%', 0]
+	});
+	return tl;
+}
+
+// FULLPAGE SCSS
+.fullpage__slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    @include mq(768px) {
+        justify-content: flex-end;
+        align-items: center;
+
+        .btn-wrap {
+            padding-top: 3rem;
+            justify-content: flex-start;
+        }
+    }
+
+    .btn {
+        pointer-events: initial;
+    }
+
+    .title {
+        width: 100%;
+        position: absolute;
+        top: 65%;
+        left: 0;
+        z-index: 20;
+        overflow: hidden;
+        pointer-events: none;
+
+        @include mq(768px) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &__text {
+            font-size: 5rem;
+            font-weight: 400;
+
+            @include mq(768px) {
+                font-size: 9rem;
+            }
+        }
+    }
+
+    .image {
+        display: inline-block;
+        width: 90%;
+        height: 60%;
+        margin-top: 6rem;
+
+        @include mq(768px) {
+            width: 70%;
+            height: 80%;
+            margin-top: 0;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        &--over {
+            position: relative;
+            overflow: hidden;
+            .image__cover {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                &:nth-child(3) {
+                    width: 100%;
+                    background-color: $img-overlay-color;
+                    display: none;
+                }
+                &:nth-child(2) {
+                    width: 100%;
+                    background-color: $primary-color;
+                    z-index: 4;
+                    transform: scaleX(0);
+                    transform-origin: left center;
+                }
+            }
+        }
+    }
+}
+
+
+ -->

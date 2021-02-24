@@ -8,6 +8,9 @@ import '../sass/style.scss';
 // import '../vendors/fullpage.min.css';
 
 
+const SCROLL_SPEED = 1200;
+let prevAnimation;
+
 const moonParallax = new Parallax({
     wrapper: '.js-parallax-moon',
     layers: '.moon__layer',
@@ -15,24 +18,15 @@ const moonParallax = new Parallax({
 
 // Initialize fullpage js
 const fullPage = new fullpage('#fullpage', {
-    scrollingSpeed: 1200,
+    scrollingSpeed: SCROLL_SPEED,
     recordHistory: false,
     easing: 'easeIn',
     onLeave(origin, destination, direction) {
-        // const section = destination.item;
-        // const imageElement = section.querySelector('.image--over');
-        // const elementsToSlide = section.querySelectorAll('.js-slide-left');
-        // if (imageElement) {
-        //     const covers = imageElement.querySelectorAll('.image__cover');
-        //     covers.forEach(cover => {
-        //         cover.style.transform = 'translateX(0)';
-        //     });
-        // }
-        // if (elementsToSlide) {
-        //     elementsToSlide.forEach(el => {
-        //         el.style.transform = 'translateX(-100%)';
-        //     })
-        // }
+    	if (prevAnimation) {
+    		setTimeout(() => {
+    			prevAnimation.seek(0)
+    		},SCROLL_SPEED);
+    	}
     },
 
     afterLoad(origin, destination, direction) {
@@ -40,7 +34,7 @@ const fullPage = new fullpage('#fullpage', {
         const imageElement = section.querySelector('.image--over');
         const elementsToSlide = section.querySelectorAll('.js-slide-left');
         if (imageElement) {
-            revealImage(imageElement, '.image__cover', elementsToSlide);
+            prevAnimation = revealImage(imageElement, '.image__cover', elementsToSlide);
         }
         // if (elementsToSlide) {
         //     slideFromLeft(elementsToSlide);

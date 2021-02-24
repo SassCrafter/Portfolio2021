@@ -1,5 +1,6 @@
 export default class {
     constructor(options) {
+        this.layers = [];
         this.options = options || {};
         this.nameSpaces = {
             wrapper: this.options.wrapper || '.parallax',
@@ -17,17 +18,15 @@ export default class {
             wrapper.addEventListener('mousemove', (e) => {
                 this.moveHandler(e, wrapper);
             });
-            const layers = wrapper.querySelectorAll(this.nameSpaces.layers);
+            this.layers.push(...Array.from(wrapper.querySelectorAll(this.nameSpaces.layers)));
         });
     }
 
     moveHandler(e, wrapper) {
-       // console.log(this);
         const x = e.clientX;
         const y = e.clientY;
-        //console.log(x, y);
-        const layers = wrapper.querySelectorAll(this.nameSpaces.layers);
-        layers.forEach((layer) => {
+        this.layers.forEach((layer) => {
+            console.log(layer);
             const rect = layer.getBoundingClientRect();
             const { top, left } = rect;
             //console.log(top, left);

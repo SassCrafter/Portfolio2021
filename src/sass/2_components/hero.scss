@@ -3,7 +3,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    
+
 
     .flex-ai-center {
         align-items: flex-end;
@@ -12,7 +12,6 @@
             align-items: center;
         }
     }
-    
 
     &__text {
         padding-bottom: 10rem;
@@ -29,24 +28,21 @@
     }
 }
 
-.moon {
+.moon,
+.moonlight {
     width: 165vw;
-    height: 100vh;
+    height: calc(100vh + 10rem);
     position: absolute;
     left: 50%;
     top: -10rem;
     transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // z-index: 30;
-    // pointer-events: none;
 
     @include mq(768px) {
-        top: 0;
         width: 100%;
+        height: 150vh;
+        top: 50%;
         left: 30%;
-        transform: translateX(0);
+        transform: translate(0, -50%);
     }
     @include mq(1200px) {
         top: 0;
@@ -54,6 +50,31 @@
         left: 25%;
         transform: translateX(0);
     }
+}
+
+.moonlight {
+    //height: 150vh;
+    //top: calc(-20vh);
+    position: fixed;
+    z-index: -1;
+
+    &__img {
+        width: 100%;
+        height: 100%;
+        background-image: url('../../public/images/hero/moonlight.svg');
+        opacity: 0.8;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+    }
+
+.moon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // z-index: 30;
+    // pointer-events: none;
 
 
     &__text-wrapper {
@@ -84,21 +105,6 @@
         }
     }
 
-    &light {
-        width: 100%;
-        height: 130vh;
-        position: absolute;
-        &__img {
-            width: 100%;
-            height: 100%;
-            background-image: url('../../public/images/hero/moonlight.svg');
-            opacity: 0.8;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            background-position: center;
-        }
-    }
-
     &__wrapper {
         width: 100vw;
         height: 100%;
@@ -126,7 +132,6 @@
         @include mq(1500px) {
             width: 60rem;
         }
-        
     }
 
     .layer {
@@ -218,154 +223,3 @@
         z-index: 10;
     }
 }
-
-// .moon {
-//     width: 100%;
-//     height: 100%;
-//     position: absolute;
-//     top: 3rem;
-//     left: 0;
-//     overflow: hidden;
-//     @include mq(768px) {
-//         top: 50%;
-//         left: auto;
-//         right: 0;
-//         transform:translateY(-50%);
-//         width: 80%;
-//     }
-
-//    .moonlight {
-//        width: 100%;
-//        height: 100%;
-//        //max-width: 40rem;
-//        position: absolute;
-//        top: -20%;
-//        left: 0;
-//        z-index: 2;
-//        border: 1px solid red;
-
-//        &__img {
-//             width: 100%;
-//             height: 100%;
-//             background-image: url('../../public/images/hero/moonlight.svg');
-//             background-repeat: no-repeat;
-//             background-size: 100%;
-//             background-position: center;
-//             position: relative;
-
-//             @include mq(768px) {
-//                 width: 150%;
-//             }
-//        }
-
-//        @include mq(768px) {
-//             top: 0;
-//             left: -1rem;
-//        }
-//    }
-
-//    &__img {
-//        width: 40%;
-//        position: absolute;
-//        top: 50%;
-//        left: 50%;
-//        transform: translate(-50%, -50%);
-//        z-index: 80;
-//    }
-
-//    &__text-wrapper {
-//        position: absolute;
-//        top: 25%;
-//        left: 10%;
-//        //transform: translateY(-50%);
-//        z-index: 120 !important;
-       
-
-//        h1 {
-//            font-size: 3rem;
-//            text-transform: uppercase;
-//            color: $primary-color;
-//            letter-spacing: 2px;
-//            text-shadow: 2px 5px 5px rgba(158, 108, 108, 0.4);
-//        }
-//    }
-
-//    .layer {
-//        position: absolute;
-       
-//        img {
-//            width: 90%;
-//            max-width: 25rem;
-//        }
-       
-//        &--1 {
-//            top: 15%;
-//            right: -20%;
-//        }
-//        &--2 {
-//            top: 31%;
-//            left: -20%;
-//        }
-//        &--3 {
-//            top: 40%;
-//            right: -10%;
-//        }
-//        &--4 {
-//            top: 10%;
-//            left: 0;
-//        }
-//        &--5 {
-//            top: 5%;
-//            right: -10%;
-//        }
-//    }
-
-
-//     &__front {
-//         z-index: 100;
-//     }
-//     &__back {
-//         z-index: 2;
-//     }
-// }
-
-
-
-// .moon {
-//     width: 100%;
-//     height: 100%;
-//     position: absolute;
-//     top: -25%;
-//     left: 0;
-
-//     &::before {
-//         content: '';
-//         width: 30rem;
-//         height: 30rem;
-//         border-radius: 50%;
-//         background-color: 
-//     }
-
-//     .moonlight {
-//         width: 100%;
-//         height: 100%;
-
-//         &__wrap {
-//             width: 100%;
-//             height: 100%;
-//         }
-
-//         &__img {
-//             height: 100%;
-//             background-image: url('../../public/images/moonlight.svg');
-//             background-repeat: no-repeat;
-//             background-size: 150%;
-//             background-position: center;
-//         }
-//     }
-// }
-
-// .star {
-//     position: absolute;
-//     top: 10%;
-// }

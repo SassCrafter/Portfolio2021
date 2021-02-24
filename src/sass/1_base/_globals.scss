@@ -126,13 +126,13 @@ img {
         &::before,
         &::after {
             width: 10rem;
-            height: 4px;
+            height: 6px;
         }
         &::before {
-            bottom: -2rem;
+            bottom: -3rem;
         }
         &::after {
-            bottom: -4rem;
+            bottom: -5rem;
         }
     }
 }
