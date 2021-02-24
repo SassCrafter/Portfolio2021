@@ -10,11 +10,13 @@ const revealMenu = (menuEl, oper) => {
 	.add({
 		targets: menuEl,
 		translateY: ['-100%', 0],
+		translateZ: 0,
 		duration: DURATION,
 	})
 	.add({
 		targets: menuEl.querySelectorAll('li a'),
 		scaleY: [0, 1],
+		translateZ: 0,
 		duration: DURATION,
 		delay: anime.stagger(100),
 	});
@@ -24,6 +26,7 @@ const closeMenu = (menuEl) => {
 	anime({
 		targets: menuEl,
 		translateY: '-100%',
+		translateZ: 0,
 		duration: 600,
 		easing: 'easeInOutExpo'
 	});
@@ -40,10 +43,12 @@ const revealImage = (image, imageCoverSelector, elsToSlide) => {
 	.add({
 		targets: imageCovers[0],
 		scaleX: [0, 1],
+		translateZ: 0,
 	})
 	.add({
 		targets: imageCovers,
 		translateX: '100%',
+		translateZ: 0,
 	})
 	.add({
 		targets: image.querySelector('img'),
@@ -52,7 +57,8 @@ const revealImage = (image, imageCoverSelector, elsToSlide) => {
 	}, `-=${DURATION}`)
 	.add({
 		targets: elsToSlide,
-		translateX: ['-100%', 0]
+		translateX: ['-100%', 0],
+		translateZ: 0,
 	});
 	return tl;
 }
@@ -67,7 +73,15 @@ const slideFromLeft = (elements) => {
 	})
 }
 
- 
+const leavePage = (element) => {
+	anime({
+		targets: element,
+		duration: DURATION,
+		translateY: ['-100%', '100%'],
+		translateZ: 0,
+		easing: 'easeInOutQuad',
+	});
+}
 
 
-export {revealMenu, closeMenu, revealImage, slideFromLeft};
+export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage};

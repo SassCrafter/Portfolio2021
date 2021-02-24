@@ -1,16 +1,18 @@
 import './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
-import { revealImage, slideFromLeft } from './animations.js';
+import Barba from '@barba/core';
+import { revealImage, slideFromLeft, leavePage } from './animations.js';
+
 
 
 import '../sass/style.scss';
-// import '../vendors/fullpage.min.css';
 
 
 const SCROLL_SPEED = 1200;
 let prevAnimation;
 
+// Initialize parallax
 const moonParallax = new Parallax({
     wrapper: '.js-parallax-moon',
     layers: '.moon__layer',
@@ -41,3 +43,14 @@ const fullPage = new fullpage('#fullpage', {
         // }
     }
 });
+
+// Initialize Barba js
+// const barba = new Barba({
+// 	name: 'default',
+// 	leave() {
+// 		leavePage(document.querySelector('.curtain'));
+// 	},
+// 	enter() {
+// 		leavePage(document.querySelector('.curtain'));
+// 	}
+// });

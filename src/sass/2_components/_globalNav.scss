@@ -37,6 +37,24 @@
 
 		@include mq(768px) {
 			font-size: 6.6rem;
+			position: relative;
+
+			&::before {
+				content: '';
+				width: 100%;
+				height: 6px;
+				background-color: $text-color;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%) scaleX(0);
+				transform-origin: left center;
+				transition: transform $t-time $t-ease;
+			}
+
+			&:hover::before {
+				transform: translateY(-50%) scaleX(1);
+			}
 		}
 	}
 }

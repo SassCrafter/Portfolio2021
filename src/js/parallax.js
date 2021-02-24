@@ -26,14 +26,9 @@ export default class {
         const x = e.clientX;
         const y = e.clientY;
         this.layers.forEach((layer) => {
-            console.log(layer);
-            const rect = layer.getBoundingClientRect();
-            const { top, left } = rect;
-            //console.log(top, left);
             const depth = layer.getAttribute(this.nameSpaces.depth);
             const itemX = x / (+depth * 300);
             const itemY = y / (+depth * 300);
-            //console.log(`x: ${x}, y: ${y}, depth: ${+depth}`);
             layer.style.transform = `translate(${itemX}%, ${itemY}%)`;
         });
     }

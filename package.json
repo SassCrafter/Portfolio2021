@@ -19,6 +19,7 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
+    "@barba/core": "^2.9.7",
     "animejs": "^3.2.1"
   }
 }
