@@ -28,10 +28,13 @@ export default class {
         //console.log(x, y);
         const layers = wrapper.querySelectorAll(this.nameSpaces.layers);
         layers.forEach((layer) => {
+            const rect = layer.getBoundingClientRect();
+            const { top, left } = rect;
+            //console.log(top, left);
             const depth = layer.getAttribute(this.nameSpaces.depth);
             const itemX = x / (+depth * 300);
             const itemY = y / (+depth * 300);
-            console.log(`x: ${x}, y: ${y}, depth: ${+depth}`);
+            //console.log(`x: ${x}, y: ${y}, depth: ${+depth}`);
             layer.style.transform = `translate(${itemX}%, ${itemY}%)`;
         });
     }

@@ -36,7 +36,8 @@ img {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
+    height: 100%;
     margin: 0 auto;
     padding: 0 2rem;
     overflow: hidden;
@@ -67,7 +68,7 @@ img {
 
 .lines-bottom {
     position: relative;
-    margin-bottom: 3.5rem;
+    margin-bottom: 4.5rem;
 
     &::before,
     &::after {
@@ -80,13 +81,38 @@ img {
     }
 
     &::before {
-        bottom: -1rem;
+        bottom: -2rem;
     }
     &::after {
-        bottom: -2rem;
+        bottom: -3rem;
         left: 3rem;
     }
 }
+
+.page-num {
+    display: none;
+}
+
+.btn-wrap {
+    width: 100%;
+    @include flexCenter;
+}
+
+.btn {
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 1rem 2rem;
+    background-color: $primary-color;
+    color: $text-color;
+    border-radius: 50rem;
+}
+
+.js-slide-left {
+    transform: translateX(-100%);
+}
+
 
 @include mq(768px) {
     .container {
@@ -113,5 +139,15 @@ img {
 @include mq(900px) {
     .xlarge {
         font-size: 6rem;
+    }
+}
+@include mq(1300px) {
+    .xlarge {
+        font-size: 8rem;
+    }
+}
+@include mq(1400px) {
+    .xlarge {
+        font-size: 9rem;
     }
 }

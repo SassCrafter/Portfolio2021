@@ -1921,11 +1921,13 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.closeMenu = exports.revealMenu = void 0;
+exports.slideFromLeft = exports.revealImage = exports.closeMenu = exports.revealMenu = void 0;
 
 var _animeEs = _interopRequireDefault(require("animejs/lib/anime.es.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DURATION = 400;
 
 var revealMenu = function revealMenu(menuEl, oper) {
   var tl = _animeEs.default.timeline({
@@ -1935,11 +1937,11 @@ var revealMenu = function revealMenu(menuEl, oper) {
   tl.add({
     targets: menuEl,
     translateY: ['-100%', 0],
-    duration: 400
+    duration: DURATION
   }).add({
     targets: menuEl.querySelectorAll('li a'),
     scaleY: [0, 1],
-    duration: 400,
+    duration: DURATION,
     delay: _animeEs.default.stagger(100)
   });
 };
@@ -1957,7 +1959,45 @@ var closeMenu = function closeMenu(menuEl) {
 
 exports.closeMenu = closeMenu;
 
-var iconToX = function iconToX() {};
+var revealImage = function revealImage(image, imageCoverSelector, elsToSlide) {
+  var imageCovers = image.querySelectorAll(imageCoverSelector); // anime({
+  // 	targets: imageCovers,
+  // 	translateX: window.innerWidth,
+  // 	duration: 800,
+  // 	easing: 'easeInOutExpo'
+  // });
+
+  var tl = _animeEs.default.timeline({
+    duration: DURATION,
+    easing: 'easeInOutQuad'
+  });
+
+  tl.add({
+    targets: imageCovers[0],
+    scaleX: [0, 1],
+    translateX: {
+      value: window.innerWidth,
+      delay: 400
+    }
+  }).add({
+    targets: elsToSlide,
+    translateX: 0
+  });
+};
+
+exports.revealImage = revealImage;
+
+var slideFromLeft = function slideFromLeft(elements) {
+  (0, _animeEs.default)({
+    targets: elements,
+    duration: 400,
+    translateX: 0,
+    easing: 'linear',
+    delay: _animeEs.default.stagger(100)
+  });
+};
+
+exports.slideFromLeft = slideFromLeft;
 },{"animejs/lib/anime.es.js":"../node_modules/animejs/lib/anime.es.js"}],"../src/js/menu.js":[function(require,module,exports) {
 "use strict";
 
@@ -2272,10 +2312,14 @@ var _default = /*#__PURE__*/function () {
 
       var layers = wrapper.querySelectorAll(this.nameSpaces.layers);
       layers.forEach(function (layer) {
+        var rect = layer.getBoundingClientRect();
+        var top = rect.top,
+            left = rect.left; //console.log(top, left);
+
         var depth = layer.getAttribute(_this2.nameSpaces.depth);
         var itemX = x / (+depth * 300);
-        var itemY = y / (+depth * 300);
-        console.log("x: ".concat(x, ", y: ").concat(y, ", depth: ").concat(+depth));
+        var itemY = y / (+depth * 300); //console.log(`x: ${x}, y: ${y}, depth: ${+depth}`);
+
         layer.style.transform = "translate(".concat(itemX, "%, ").concat(itemY, "%)");
       });
     }
@@ -4669,7 +4713,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var touchEndY = 0;
     var touchEndX = 0;
     /* Detecting touch events
-      * As we are changing the top property of the page on scrolling, we can not use the traditional way to detect it.
+     * As we are changing the top property of the page on scrolling, we can not use the traditional way to detect it.
     * This way, the touchstart and the touch moves shows an small difference between them which is the
     * used one to determine the direction.
     */
@@ -5144,7 +5188,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
               /* Hack!
               The timeout prevents setting the most dominant section in the viewport as "active" when the user
               scrolled to a smaller section by using the mousewheel (auto scrolling) rather than draging the scroll bar.
-                When using scrollBar:true It seems like the scroll events still getting propagated even after the scrolling animation has finished.
+               When using scrollBar:true It seems like the scroll events still getting propagated even after the scrolling animation has finished.
               */
               setTimeout(function () {
                 afterSectionLoads(v);
@@ -7147,10 +7191,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
   /**
   Usage:
-    var wrapper = document.createElement('div');
+   var wrapper = document.createElement('div');
   wrapper.className = 'fp-slides';
   wrap($('.slide'), wrapper);
-    https://jsfiddle.net/qwzc7oy3/15/ (vanilla)
+   https://jsfiddle.net/qwzc7oy3/15/ (vanilla)
   https://jsfiddle.net/oya6ndka/1/ (jquery equivalent)
   */
 
@@ -7177,7 +7221,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var wrapper = document.createElement('div');
   wrapper.className = 'fp-slides';
   wrap($('.slide'), wrapper);
-    https://jsfiddle.net/qwzc7oy3/27/ (vanilla)
+   https://jsfiddle.net/qwzc7oy3/27/ (vanilla)
   https://jsfiddle.net/oya6ndka/4/ (jquery equivalent)
   */
 
@@ -7608,6 +7652,8 @@ var _parallax = _interopRequireDefault(require("./parallax.js"));
 
 var _fullpage = _interopRequireDefault(require("../vendors/fullpage.js"));
 
+var _animations = require("./animations.js");
+
 require("../sass/style.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -7618,8 +7664,39 @@ var moonParallax = new _parallax.default({
   layers: '.moon__layer'
 }); // Initialize fullpage js
 
-var fullPage = new _fullpage.default('#fullpage');
-},{"./menu.js":"../src/js/menu.js","./parallax.js":"../src/js/parallax.js","../vendors/fullpage.js":"../src/vendors/fullpage.js","../sass/style.scss":"../src/sass/style.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var fullPage = new _fullpage.default('#fullpage', {
+  scrollingSpeed: 1200,
+  recordHistory: false,
+  easing: 'easeIn',
+  onLeave: function onLeave(origin, destination, direction) {// const section = destination.item;
+    // const imageElement = section.querySelector('.image--over');
+    // const elementsToSlide = section.querySelectorAll('.js-slide-left');
+    // if (imageElement) {
+    //     const covers = imageElement.querySelectorAll('.image__cover');
+    //     covers.forEach(cover => {
+    //         cover.style.transform = 'translateX(0)';
+    //     });
+    // }
+    // if (elementsToSlide) {
+    //     elementsToSlide.forEach(el => {
+    //         el.style.transform = 'translateX(-100%)';
+    //     })
+    // }
+  },
+  afterLoad: function afterLoad(origin, destination, direction) {
+    var section = destination.item;
+    var imageElement = section.querySelector('.image--over');
+    var elementsToSlide = section.querySelectorAll('.js-slide-left');
+
+    if (imageElement) {
+      (0, _animations.revealImage)(imageElement, '.image__cover', elementsToSlide);
+    } // if (elementsToSlide) {
+    //     slideFromLeft(elementsToSlide);
+    // }
+
+  }
+});
+},{"./menu.js":"../src/js/menu.js","./parallax.js":"../src/js/parallax.js","../vendors/fullpage.js":"../src/vendors/fullpage.js","./animations.js":"../src/js/animations.js","../sass/style.scss":"../src/sass/style.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -7647,7 +7724,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63964" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

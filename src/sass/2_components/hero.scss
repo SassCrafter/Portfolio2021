@@ -5,9 +5,14 @@
     overflow: hidden;
     
 
-    @include mq(768px) {
-        justify-content: center;
+    .flex-ai-center {
+        align-items: flex-end;
+
+        @include mq(768px) {
+            align-items: center;
+        }
     }
+    
 
     &__text {
         padding-bottom: 10rem;
@@ -41,6 +46,12 @@
         top: 0;
         width: 100%;
         left: 30%;
+        transform: translateX(0);
+    }
+    @include mq(1200px) {
+        top: 0;
+        width: 100%;
+        left: 25%;
         transform: translateX(0);
     }
 
