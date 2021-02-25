@@ -105,18 +105,38 @@ img {
     border-radius: 50rem;
 }
 
+.not-clickable {
+    opacity: 0.8;
+    pointer-events: none;
+    &::before {
+        transform: scaleX(1) !important;
+    }
+}
+
 .js-slide-left {
     transform: translateX(-100%);
 }
 
+// .curtain {
+//     width: 100%;
+//     height: 100vh;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     background-color: darken($bg-color, 30%);
+//     transform: translateY(100%);
+//     z-index: 9999;
+// }
 .curtain {
     width: 100%;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: darken($bg-color, 30%);
-    transform: translateY(100%);
+    background-color: darken($bg-color, 5%);
+    //transform: translateY(100%);
+    transform: scaleY(0);
+    transform-origin: center bottom;
     z-index: 9999;
 }
 

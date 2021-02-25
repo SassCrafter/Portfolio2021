@@ -2,7 +2,7 @@ import './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
-import { revealImage, slideFromLeft, leavePage, slideFromRight, enterPage } from './animations.js';
+import { revealImage, slideFromLeft, leavePage, slideFromRight, enterPage, pageTransition } from './animations.js';
 
 
 
@@ -14,7 +14,7 @@ let prevAnimation;
 let fullpageVar;
 
 // Initialize parallax
-const moonParallax = new Parallax({
+let moonParallax = new Parallax({
     wrapper: '.js-parallax-moon',
     layers: '.moon__layer',
 });
@@ -28,24 +28,23 @@ function fullpageInit() {
         onLeave(origin, destination, direction) {
             const section = origin.item;
             console.log('Leave', origin, destination, section.scAnimation);
-            
+
             // Reset animation on leaving page after scrool speed
             if (section.scAnimation) {
                 setTimeout(() => {
-                    console.log('Seek')
+                    //console.log('Seek')
                     section.scAnimation.forEach(anim => {
                         anim.seek(0);
                     });
                 },SCROLL_SPEED);
             }
-    
+
         },
-    
+
         afterLoad(origin, destination, direction) {
             const section = destination.item;
-            console.log('Load', destination.index);
-            console.dir(section);
-    
+            //console.log('Load', destination.index);
+            //console.dir(section);
             // If section doesn't have custom animation property (array) than add one else play all of them
             if (!section.scAnimation) {
                 if (destination.index === 0) {
@@ -69,7 +68,84 @@ function fullpageInit() {
 
 fullpageInit();
 
+function delay(n) {
+	n = n || 2000;
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve();
+		}, n);
+	});
+}
+
 //Initialize Barba js
+// barba.init({
+// 	transitions: [
+//         {
+//             name: 'default',
+//             sync: true,
+//             leave() {
+//                 if (fullpageVar) {
+//                     fullpageVar.destroy('all');
+//                 }
+//                 console.log("LEAVING THE PAGE");
+//                 document.querySelector('.menu-icon').click();
+//                 leavePage(document.querySelector('.curtain'));
+//             },
+//             enter() {
+//                 fullpageInit();
+//                 enterPage(document.querySelector('.curtain'));
+//             },
+//             // once() {
+//             //     fullpageInit();
+//             //     leavePage(document.querySelector('.curtain'));
+//             //     enterPage(document.querySelector('.curtain'))
+//             // }
+//         },
+//     ]
+// });
+
+// barba.init({
+// 	sync: true,
+
+// 	transitions: [{
+
+// 		async leave(data) {
+// 			console.log("LEAVE THE PAGE")
+// 			if (fullpageVar) {
+//                 fullpageVar.destroy('all');
+//             }
+//             document.querySelector('.menu-icon').click();
+// 			const done = this.async();
+
+// 			pageTransition('.curtain');
+// 			await delay(1500);
+// 			done();
+// 		},
+
+// 		async enter(data) {
+// 			fullpageInit();
+// 		}
+		
+// 	}]
+// })
+
+const links = document.querySelectorAll('a[href]');
+const cbk = function(e) {
+ if(e.currentTarget.href === window.location.href) {
+ 	console.log("SAME");	
+   e.preventDefault();
+   e.stopPropagation();
+   pageTransition('.curtain');
+   setTimeout(() => {
+   	document.querySelector('.menu-icon').click();
+   }, 175)
+ }
+};
+
+for(let i = 0; i < links.length; i++) {
+  links[i].addEventListener('click', cbk);
+}
+
 barba.init({
 	transitions: [
         {
@@ -80,18 +156,16 @@ barba.init({
                     fullpageVar.destroy('all');
                 }
                 console.log("LEAVING THE PAGE");
-                document.querySelector('.menu-icon').click();
-                leavePage(document.querySelector('.curtain'));
+                pageTransition('.curtain');
             },
             enter() {
+            	document.querySelector('.menu-icon').click();
                 fullpageInit();
-                enterPage(document.querySelector('.curtain'));
+                moonParallax = new Parallax({
+				    wrapper: '.js-parallax-moon',
+				    layers: '.moon__layer',
+				});
             },
-            // once() {
-            //     fullpageInit();
-            //     leavePage(document.querySelector('.curtain'));
-            //     enterPage(document.querySelector('.curtain'))
-            // }
         },
     ]
 });

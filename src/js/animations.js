@@ -106,5 +106,21 @@ const enterPage = (element) => {
 	});
 }
 
+const pageTransition = (el) => {
+	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
+	tl
+	.add({
+		targets: el,
+		scaleY: [0, 1],
+		translateZ: 0,
+		transformOrigin: '100% 100% 100%',
+	})
+	.add({
+		targets: el,
+		scaleY: [1, 0],
+		translateZ: 0,
+	});
+}
 
-export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, enterPage};
+
+export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, enterPage, pageTransition};
