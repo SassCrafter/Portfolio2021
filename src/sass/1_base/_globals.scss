@@ -89,10 +89,6 @@ img {
     }
 }
 
-.page-num {
-    display: none;
-}
-
 .btn-wrap {
     width: 100%;
     @include flexCenter;
@@ -119,8 +115,8 @@ img {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: $bg-color;
-    transform: translateY(-100%);
+    background-color: darken($bg-color, 30%);
+    transform: translateY(100%);
     z-index: 9999;
 }
 

@@ -51,7 +51,7 @@ const revealImage = (image, imageCoverSelector, elsToSlide) => {
 		translateZ: 0,
 	})
 	.add({
-		targets: image.querySelector('img'),
+		targets: [image.querySelector('img'), image.querySelector('.page-num')],
 		opacity: 1,
 		duration: 50,
 	}, `-=${DURATION}`)
@@ -64,24 +64,47 @@ const revealImage = (image, imageCoverSelector, elsToSlide) => {
 }
 
 const slideFromLeft = (elements) => {
-	anime({
+	const a = anime({
 		targets: elements,
 		duration: 400,
-		translateX: 0,
+		translateX: ['-100%', 0],
+		opacity: [0,1],
 		easing: 'linear',
 		delay: anime.stagger(100),
-	})
+	});
+	return a;
+}
+const slideFromRight = (elements) => {
+	const a = anime({
+		targets: elements,
+		duration: 400,
+		translateX: ['100%', 0],
+		opacity: [0, 1],
+		easing: 'linear',
+		delay: anime.stagger(100),
+	});
+	return a;
 }
 
 const leavePage = (element) => {
-	anime({
+	return anime({
 		targets: element,
-		duration: DURATION,
-		translateY: ['-100%', '100%'],
+		duration: DURATION * 2,
+		translateY: ['100%', 0],
+		translateZ: 0,
+		easing: 'easeInOutQuad',
+	});
+}
+
+const enterPage = (element) => {
+	return anime({
+		targets: element,
+		duration: DURATION * 2,
+		translateY: '-100%',
 		translateZ: 0,
 		easing: 'easeInOutQuad',
 	});
 }
 
 
-export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage};
+export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, enterPage};

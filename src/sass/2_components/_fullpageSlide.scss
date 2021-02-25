@@ -40,6 +40,9 @@
             @include mq(768px) {
                 font-size: 9rem;
             }
+            @include mq(1200px) {
+                font-size: 12rem;
+            }
         }
     }
 
@@ -61,6 +64,28 @@
             object-fit: cover;
             pointer-events: none;
             opacity: 0;
+        }
+
+        .page-num {
+            display: none;
+            @include mq(800px) {
+                display: block;
+                position: absolute;
+                bottom: 0;
+                right: 5rem;
+                opacity: 0;
+                z-index: 1;
+
+                p {
+                    line-height: 1;
+                    font-size: 14rem;
+                    font-weight: 700;
+                    color: $text-color;
+                    @include mq(1200px) {
+                        font-size: 18rem;
+                    }
+                }
+            }
         }
 
         &--over {
