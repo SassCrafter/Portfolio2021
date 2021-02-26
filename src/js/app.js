@@ -2,7 +2,7 @@ import './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
-import { revealImage, slideFromLeft, leavePage, slideFromRight, enterPage, pageTransition } from './animations.js';
+import { revealImage, slideFromLeft, leavePage, slideFromRight, imageToSection, pageTransition } from './animations.js';
 
 
 
@@ -10,7 +10,6 @@ import '../sass/style.scss';
 
 
 const SCROLL_SPEED = 1200;
-let prevAnimation;
 let fullpageVar;
 
 // Initialize parallax
@@ -22,6 +21,8 @@ let moonParallax = new Parallax({
 // Initialize fullpage js
 function fullpageInit() {
     fullpageVar = new fullpage('#fullpage', {
+        anchors: ['hero', 'work'],
+        menu: '#fullpage-menu',
         scrollingSpeed: SCROLL_SPEED,
         recordHistory: false,
         easing: 'easeIn',
@@ -32,7 +33,6 @@ function fullpageInit() {
             // Reset animation on leaving page after scrool speed
             if (section.scAnimation) {
                 setTimeout(() => {
-                    //console.log('Seek')
                     section.scAnimation.forEach(anim => {
                         anim.seek(0);
                     });
@@ -43,8 +43,6 @@ function fullpageInit() {
 
         afterLoad(origin, destination, direction) {
             const section = destination.item;
-            //console.log('Load', destination.index);
-            //console.dir(section);
             // If section doesn't have custom animation property (array) than add one else play all of them
             if (!section.scAnimation) {
                 if (destination.index === 0) {
@@ -68,66 +66,6 @@ function fullpageInit() {
 
 fullpageInit();
 
-function delay(n) {
-	n = n || 2000;
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve();
-		}, n);
-	});
-}
-
-//Initialize Barba js
-// barba.init({
-// 	transitions: [
-//         {
-//             name: 'default',
-//             sync: true,
-//             leave() {
-//                 if (fullpageVar) {
-//                     fullpageVar.destroy('all');
-//                 }
-//                 console.log("LEAVING THE PAGE");
-//                 document.querySelector('.menu-icon').click();
-//                 leavePage(document.querySelector('.curtain'));
-//             },
-//             enter() {
-//                 fullpageInit();
-//                 enterPage(document.querySelector('.curtain'));
-//             },
-//             // once() {
-//             //     fullpageInit();
-//             //     leavePage(document.querySelector('.curtain'));
-//             //     enterPage(document.querySelector('.curtain'))
-//             // }
-//         },
-//     ]
-// });
-
-// barba.init({
-// 	sync: true,
-
-// 	transitions: [{
-
-// 		async leave(data) {
-// 			console.log("LEAVE THE PAGE")
-// 			if (fullpageVar) {
-//                 fullpageVar.destroy('all');
-//             }
-//             document.querySelector('.menu-icon').click();
-// 			const done = this.async();
-
-// 			pageTransition('.curtain');
-// 			await delay(1500);
-// 			done();
-// 		},
-
-// 		async enter(data) {
-// 			fullpageInit();
-// 		}
-		
-// 	}]
-// })
 
 const links = document.querySelectorAll('a[href]');
 const cbk = function(e) {
@@ -155,7 +93,6 @@ barba.init({
                 if (fullpageVar) {
                     fullpageVar.destroy('all');
                 }
-                console.log("LEAVING THE PAGE");
                 pageTransition('.curtain');
             },
             enter() {
@@ -167,5 +104,16 @@ barba.init({
 				});
             },
         },
+        {
+            from: {
+                namespace: [
+                    'section'
+                ]
+            },
+
+            leave(data) {
+                console.log(data);
+            }
+        }
     ]
 });

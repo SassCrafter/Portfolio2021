@@ -106,6 +106,22 @@ const enterPage = (element) => {
 	});
 }
 
+// const pageTransition = (el) => {
+// 	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
+// 	tl
+// 	.add({
+// 		targets: el,
+// 		scaleY: [0, 1],
+// 		translateZ: 0,
+// 		transformOrigin: '0 0',
+// 	})
+// 	.add({
+// 		targets: el,
+// 		scaleY: [1, 0],
+// 		translateZ: 0,
+// 	});
+// }
+
 const pageTransition = (el) => {
 	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
 	tl
@@ -113,14 +129,24 @@ const pageTransition = (el) => {
 		targets: el,
 		scaleY: [0, 1],
 		translateZ: 0,
-		transformOrigin: '100% 100% 100%',
 	})
 	.add({
 		targets: el,
 		scaleY: [1, 0],
 		translateZ: 0,
-	});
+	}, '+= 200');
+}
+
+const imageToSection = (el) => {
+	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
+	tl
+	.add({
+		targets: el,
+		width: '100vw',
+		height: '100vh',
+		transformZ: 0,
+	})
 }
 
 
-export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, enterPage, pageTransition};
+export {revealMenu, closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, enterPage, pageTransition, imageToSection};
