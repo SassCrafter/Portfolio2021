@@ -122,28 +122,49 @@ const enterPage = (element) => {
 // 	});
 // }
 
+// const pageTransition = (el) => {
+// 	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
+// 	tl
+// 	.add({
+// 		targets: el,
+// 		scaleY: [0, 1],
+// 		translateZ: 0,
+// 	})
+// 	.add({
+// 		targets: el,
+// 		scaleY: [1, 0],
+// 		translateZ: 0,
+// 	}, '+= 200');
+// }
+
+
 const pageTransition = (el) => {
-	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
-	tl
-	.add({
-		targets: el,
-		scaleY: [0, 1],
-		translateZ: 0,
-	})
-	.add({
-		targets: el,
-		scaleY: [1, 0],
-		translateZ: 0,
-	}, '+= 200');
+	const tl = anime.timeline({ duration: 600, easing: 'easeInOutQuad' });
+  tl.add({
+    targets: el,
+    scaleY: [0, 1],
+    translateZ: 0,
+    transformOrigin: ['0 100%', '0 100%'],
+  }).add(
+    {
+      targets: el,
+      scaleY: [1, 0],
+      translateZ: 0,
+      transformOrigin: ['0 0', '0 0'],
+    },
+    '+= 300'
+  );
 }
 
 const imageToSection = (el) => {
-	const tl = anime.timeline({duration: 500, easing: 'easeInOutQuad'});
+	console.log("Animating image")
+	const tl = anime.timeline({duration: 1500, easing: 'easeInOutQuad'});
 	tl
 	.add({
 		targets: el,
-		width: '100vw',
-		height: '100vh',
+		// width: '100vw',
+		// height: '100vh',
+		opacity: 0,
 		transformZ: 0,
 	})
 }

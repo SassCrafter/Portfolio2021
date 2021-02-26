@@ -2,7 +2,8 @@ import './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
-import { revealImage, slideFromLeft, leavePage, slideFromRight, imageToSection, pageTransition } from './animations.js';
+import { closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, imageToSection, pageTransition } from './animations.js';
+import { removeClasses } from './utils.js';
 
 
 
@@ -88,32 +89,51 @@ barba.init({
 	transitions: [
         {
             name: 'default',
-            sync: true,
-            leave() {
+            leave(data) {
+                const { current } = data;
+                // Destroy fullpage instance;
                 if (fullpageVar) {
                     fullpageVar.destroy('all');
+                    fullpageVar = null;
                 }
+                const menuBtn = document.querySelector('.menu-icon');
+                if (menuBtn.classList.contains('open')) {
+                    setTimeout(() => {
+                        menuBtn.click();
+                    }, 500);
+                }
+
                 pageTransition('.curtain');
             },
-            enter() {
-            	document.querySelector('.menu-icon').click();
-                fullpageInit();
-                moonParallax = new Parallax({
-				    wrapper: '.js-parallax-moon',
-				    layers: '.moon__layer',
-				});
-            },
-        },
-        {
-            from: {
-                namespace: [
-                    'section'
-                ]
-            },
 
-            leave(data) {
-                console.log(data);
+            enter({next}) {
+                if (next.namespace === 'home') {
+                    fullpageInit();
+                     moonParallax = new Parallax({
+                        wrapper: '.js-parallax-moon',
+                        layers: '.moon__layer',
+                     });
+                }
             }
-        }
+        },
+        // {
+        //     name: 'imageToSection',
+        //     from: {
+        //         custom: ({trigger}) => {
+        //             return trigger.closest('.fullpage__slide') &&  trigger.closest('.fullpage__slide').classList.contains('imageToSection');
+        //         }
+        //     },
+        //     leave({trigger}) {
+        //         let imageEl;
+        //         if (trigger.classList.contains('image')) {
+        //             imageEl = trigger;
+        //         }
+        //         console.log(imageEl);
+        //         if (imageEL) {
+        //             console.log('YEP')
+        //             //imageToSection(imageEl);
+        //         }
+        //     }
+        // }
     ]
 });
