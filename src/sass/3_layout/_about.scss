@@ -1,6 +1,61 @@
 .about {
+	background-color: $bg-white;
+	color: $text-color-dark;
 
-	&-hero {
+	&__hero {
 		background-color: #222;
+	}
+
+	.who {
+
+		&__name {
+			font-size: 1.4rem;
+			margin-bottom: 2rem;
+		}
+
+		&__text {
+			font-size: 1.5rem;
+			line-height: 1.8;
+		}
+
+		&__image {
+			width: 40%;
+			border-radius: 50%;
+			margin-right: 2rem;
+
+			@include mq(900px) {
+				float: left;
+			}
+
+			img {
+				border-radius: 50%;
+			}
+		}
+	}
+}
+
+.skills__icons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	.icon {
+		width: 40%;
+		margin: 1rem;
+		img {
+			display: block;
+			margin: 0 auto;
+			width: 70%;
+		}
+
+		&--circle {
+			img {
+				border-radius: 50%;
+			}
+		}
+
+		@include mq(768px) {
+			width: 23%;
+		}
 	}
 }

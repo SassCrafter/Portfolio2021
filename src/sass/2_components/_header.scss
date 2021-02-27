@@ -20,6 +20,11 @@
         a {
             color: $text-color;
             padding: 0.25rem 1rem;
+            transition: opacity $t-time linear;
+
+            &:hover {
+                opacity: 0.6;
+            }
             &:not(:last-child) {
                 margin-right: 1rem;
             }

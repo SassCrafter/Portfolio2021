@@ -50,10 +50,18 @@ img {
     padding: 2rem 0;
 }
 
+.wrapper {
+    width: 100%;
+    padding: 8rem 0 2rem 0;
+}
 
 .flex {
     height: 100%;
     display: flex;
+
+    &__item {
+        width: 50%;
+    }
 
     &-ai-center {
         align-items: center;
@@ -67,6 +75,38 @@ img {
     margin-bottom: 2rem;
 }
 
+.heading {
+    font-size: 3.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+
+    &::before {
+        content: attr(data-count);
+        font-size: 1.2em;
+        color: $primary-color;
+        display: inline-block;
+        margin-right: 1rem;
+    }
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+
+    &__wrapper {
+        margin-bottom: 2rem;
+    }
+
+    &__item {
+        width: 100%;
+    }
+}
+
 .lines-bottom {
     position: relative;
     margin-bottom: 4.5rem;
@@ -76,6 +116,7 @@ img {
         content: '';
         width: 6rem;
         height: 4px;
+        border-radius: 5px;
         background-color: $primary-color;
         position: absolute;
         left: 0;    
@@ -141,6 +182,10 @@ img {
     z-index: 9999;
 }
 
+.icon {
+    width: 10rem;
+}
+
 
 .main-image {
     width: 100%;
@@ -171,11 +216,12 @@ img {
         &__text {
             font-size: 5rem;
             font-weight: 400;
+            color: $text-color;
 
             @include mq(768px) {
                 font-size: 9rem;
             }
-            @include mq(1200px) {
+            @include mq(900px) {
                 font-size: 12rem;
             }
         }
@@ -257,24 +303,50 @@ img {
     .xlarge {
         font-size: 5rem;
     }
+
+    .heading {
+        font-size: 4rem;
+    }
+
+    
     .lines-bottom {
         margin-bottom: 6rem;
         &::before,
         &::after {
             width: 10rem;
             height: 6px;
+            left: 4rem;
         }
         &::before {
             bottom: -3rem;
         }
         &::after {
             bottom: -5rem;
+            left: 8rem;
         }
     }
 }
 @include mq(900px) {
     .xlarge {
         font-size: 6rem;
+    }
+    .heading {
+        font-size: 5rem;
+
+        &::before {
+            margin-right: 6rem;
+        }
+    }
+    .text {
+        flex-direction: row;
+
+        &__item {
+            width: 35%;
+
+            &--big {
+                width: 60%;
+            }
+        }
     }
 }
 @include mq(1300px) {

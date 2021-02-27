@@ -1,6 +1,6 @@
 .fullwidth-section {
     padding: 0;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
 
     .section__content {
@@ -8,17 +8,22 @@
     }
 
     .image {
-        height: 75vh;
+        height: 100vh;
         margin-top: 0 !important;
         display: block;
 
         img {
             opacity: 1;
         }
+
+        @include mq(768px) {
+            width: 60%;
+            margin-left: auto;
+        }
     }
 
     .title {
-        top: 70%;
+        top: 60%;
 
     }
 }
