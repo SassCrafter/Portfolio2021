@@ -138,13 +138,16 @@ const enterPage = (element) => {
 // }
 
 
-const pageTransition = (el) => {
+const pageTransition = (el, callback) => {
 	const tl = anime.timeline({ duration: 600, easing: 'easeInOutQuad' });
   tl.add({
     targets: el,
     scaleY: [0, 1],
     translateZ: 0,
     transformOrigin: ['0 100%', '0 100%'],
+    complete: function() {
+      	if (typeof callback === 'function') callback();
+      }
   }).add(
     {
       targets: el,

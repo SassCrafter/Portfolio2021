@@ -1,0 +1,24 @@
+.fullwidth-section {
+    padding: 0;
+    width: 100vw;
+    overflow: hidden;
+
+    .section__content {
+        height: 100%;
+    }
+
+    .image {
+        height: 75vh;
+        margin-top: 0 !important;
+        display: block;
+
+        img {
+            opacity: 1;
+        }
+    }
+
+    .title {
+        top: 70%;
+
+    }
+}

@@ -1,4 +1,5 @@
 import './menu.js';
+import { checkIfMenuOpen } from './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
@@ -22,14 +23,13 @@ let moonParallax = new Parallax({
 // Initialize fullpage js
 function fullpageInit() {
     fullpageVar = new fullpage('#fullpage', {
-        anchors: ['hero', 'work'],
+        anchors: ['hero', 'work', 'about'],
         menu: '#fullpage-menu',
         scrollingSpeed: SCROLL_SPEED,
         recordHistory: false,
         easing: 'easeIn',
         onLeave(origin, destination, direction) {
             const section = origin.item;
-            console.log('Leave', origin, destination, section.scAnimation);
 
             // Reset animation on leaving page after scrool speed
             if (section.scAnimation) {
@@ -68,16 +68,19 @@ function fullpageInit() {
 fullpageInit();
 
 
+// If user goes to the same page than prevent default and just show transition
 const links = document.querySelectorAll('a[href]');
 const cbk = function(e) {
- if(e.currentTarget.href === window.location.href) {
- 	console.log("SAME");	
+    // Remove fullpage menu hashes from page href
+ if(e.currentTarget.href === window.location.href.split('#')[0]) {
    e.preventDefault();
    e.stopPropagation();
    pageTransition('.curtain');
-   setTimeout(() => {
-   	document.querySelector('.menu-icon').click();
-   }, 175)
+   if (checkIfMenuOpen()) {
+    setTimeout(() => {
+        menuBtn.click();
+    }, 500);
+   }
  }
 };
 
@@ -89,21 +92,25 @@ barba.init({
 	transitions: [
         {
             name: 'default',
-            leave(data) {
-                const { current } = data;
-                // Destroy fullpage instance;
-                if (fullpageVar) {
-                    fullpageVar.destroy('all');
-                    fullpageVar = null;
-                }
+            leave({current}) {
+                const done = this.async();
+                
                 const menuBtn = document.querySelector('.menu-icon');
                 if (menuBtn.classList.contains('open')) {
+                    console.log("Contains")
                     setTimeout(() => {
                         menuBtn.click();
                     }, 500);
                 }
 
-                pageTransition('.curtain');
+                pageTransition('.curtain', function() {
+                    done();
+                    // Destroy fullpage instance;
+                    if (fullpageVar) {
+                        fullpageVar.destroy('all');
+                        fullpageVar = null;
+                    }
+                });
             },
 
             enter({next}) {
