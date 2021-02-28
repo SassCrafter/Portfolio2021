@@ -86,23 +86,29 @@ const slideFromRight = (elements) => {
 	return a;
 }
 
-const leavePage = (element) => {
-	return anime({
-		targets: element,
-		duration: DURATION * 2,
-		translateY: ['100%', 0],
+const leavePage = (callback) => {
+	anime({
+		targets: '.curtain',
+		duration: 500,
+		scaleY: [0,1],
 		translateZ: 0,
+		transformOrigin: ['0 100%', '0 100%'],
 		easing: 'easeInOutQuad',
+		complete: function() {
+			callback();
+		}
 	});
 }
 
-const enterPage = (element) => {
-	return anime({
-		targets: element,
-		duration: DURATION * 2,
-		translateY: '-100%',
+const enterPage = () => {
+	anime({
+		targets: '.curtain',
+		duration: 500,
+		scaleY: [1,0],
 		translateZ: 0,
+		transformOrigin: ['0 0', '0 0'],
 		easing: 'easeInOutQuad',
+		delay: 200,
 	});
 }
 

@@ -3,7 +3,7 @@ import { checkIfMenuOpen } from './menu.js';
 import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
-import { closeMenu, revealImage, slideFromLeft, leavePage, slideFromRight, imageToSection, pageTransition } from './animations.js';
+import { closeMenu, revealImage, slideFromLeft, leavePage, enterPage, slideFromRight, imageToSection, pageTransition } from './animations.js';
 import { removeClasses } from './utils.js';
 
 
@@ -106,7 +106,8 @@ barba.init({
                 pageTransition('.curtain', function() {
                     done();
                     // Destroy fullpage instance;
-                    if (fullpageVar) {
+                    if (fullpageVar && !Object.keys(fullpageVar).length === 0) {
+                        console.log('fullpageVar = ', fullpageVar);
                         fullpageVar.destroy('all');
                         fullpageVar = null;
                     }
@@ -144,3 +145,6 @@ barba.init({
         // }
     ]
 });
+
+
+console.log('.')
