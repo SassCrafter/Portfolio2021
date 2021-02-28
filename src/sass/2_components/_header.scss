@@ -14,21 +14,7 @@
     }
     .icons {
         display: none;
-        font-size: 3rem;
-        margin-right: 2rem;
-
-        a {
-            color: $text-color;
-            padding: 0.25rem 1rem;
-            transition: opacity $t-time linear;
-
-            &:hover {
-                opacity: 0.6;
-            }
-            &:not(:last-child) {
-                margin-right: 1rem;
-            }
-        }
+        
 
         @include mq(768px) {
             display: flex;

@@ -23,7 +23,7 @@ let moonParallax = new Parallax({
 // Initialize fullpage js
 function fullpageInit() {
     fullpageVar = new fullpage('#fullpage', {
-        anchors: ['hero', 'work', 'about'],
+        anchors: ['hero', 'work', 'about', 'contact'],
         menu: '#fullpage-menu',
         scrollingSpeed: SCROLL_SPEED,
         recordHistory: false,
@@ -66,6 +66,7 @@ function fullpageInit() {
 }
 
 fullpageInit();
+console.log('After init: ', fullpageVar)
 
 
 // If user goes to the same page than prevent default and just show transition
@@ -78,7 +79,7 @@ const cbk = function(e) {
    pageTransition('.curtain');
    if (checkIfMenuOpen()) {
     setTimeout(() => {
-        menuBtn.click();
+        document.querySelector('.menu-icon').click();
     }, 500);
    }
  }
@@ -106,7 +107,7 @@ barba.init({
                 pageTransition('.curtain', function() {
                     done();
                     // Destroy fullpage instance;
-                    if (fullpageVar && !Object.keys(fullpageVar).length === 0) {
+                    if (fullpageVar && (fullpageVar !== null && Object.keys(fullpageVar).length > 0)) {
                         console.log('fullpageVar = ', fullpageVar);
                         fullpageVar.destroy('all');
                         fullpageVar = null;
@@ -124,27 +125,7 @@ barba.init({
                 }
             }
         },
-        // {
-        //     name: 'imageToSection',
-        //     from: {
-        //         custom: ({trigger}) => {
-        //             return trigger.closest('.fullpage__slide') &&  trigger.closest('.fullpage__slide').classList.contains('imageToSection');
-        //         }
-        //     },
-        //     leave({trigger}) {
-        //         let imageEl;
-        //         if (trigger.classList.contains('image')) {
-        //             imageEl = trigger;
-        //         }
-        //         console.log(imageEl);
-        //         if (imageEL) {
-        //             console.log('YEP')
-        //             //imageToSection(imageEl);
-        //         }
-        //     }
-        // }
     ]
 });
 
 
-console.log('.')

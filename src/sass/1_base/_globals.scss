@@ -68,6 +68,30 @@ img {
     }
 }
 
+
+.icons {
+    display: flex;
+    font-size: 1.5rem;
+    margin-right: 2rem;
+
+    @include mq(768px) {
+        font-size: 3rem;
+    }
+
+    a {
+        color: $text-color;
+        padding: 0.25rem 1rem;
+        transition: opacity $t-time linear;
+
+        &:hover {
+            opacity: 0.6;
+        }
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+    }
+}
+
 // Text 
 .xlarge {
     font-size: 4.5rem;
@@ -88,6 +112,18 @@ img {
         color: $primary-color;
         display: inline-block;
         margin-right: 1rem;
+    }
+}
+
+.email {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: inline-block;
+    margin: .5rem 0;
+
+    @include mq(768px) {
+        font-size: 2rem;
+        margin: 2rem 0;
     }
 }
 
@@ -199,102 +235,112 @@ img {
 }
 
 
-.title {
-        width: 70%;
-        position: absolute;
-        top: 65%;
-        left: 5rem;
-        z-index: 20;
-        overflow: hidden;
-        pointer-events: none;
+.title,
+.title--higher {
+    width: 70%;
+    position: absolute;
+    top: 60%;
+    left: 5rem;
+    z-index: 20;
+    overflow: hidden;
+    pointer-events: none;   
+
+    @include mq(768px) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__text {
+        font-size: 5rem;
+        font-weight: 400;
+        color: $text-color;
 
         @include mq(768px) {
-            top: 50%;
-            transform: translateY(-50%);
+            font-size: 9rem;
         }
+        @include mq(900px) {
+            font-size: 12rem;
+        }
+    }
+}
 
-        &__text {
-            font-size: 5rem;
-            font-weight: 400;
-            color: $text-color;
+.title--higher {
+    top: 50%;
 
-            @include mq(768px) {
-                font-size: 9rem;
-            }
-            @include mq(900px) {
-                font-size: 12rem;
+    @include mq(768px) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.image {
+    display: inline-block;
+    width: 100%;
+    height: 60%;
+    margin-top: 6rem;
+
+    // @include mq(768px) {
+    //     width: 70%;
+    //     height: 80%;
+    //     margin-top: 0;
+    // }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    .page-num {
+        display: none;
+        @include mq(800px) {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 3rem;
+            opacity: 0;
+            z-index: 1;
+
+            p {
+                line-height: 1;
+                font-size: 14rem;
+                font-weight: 700;
+                color: $text-color;
+                text-shadow: 3px 5px 5px rgba(0,0,0, 0.5);
+                @include mq(1200px) {
+                    font-size: 18rem;
+                }
             }
         }
     }
 
-    .image {
-        display: inline-block;
-        width: 100%;
-        height: 60%;
-        margin-top: 6rem;
-
-        // @include mq(768px) {
-        //     width: 70%;
-        //     height: 80%;
-        //     margin-top: 0;
-        // }
-
-        img {
+    &--over {
+        position: relative;
+        overflow: hidden;
+        
+        .image__cover {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        .page-num {
-            display: none;
-            @include mq(800px) {
-                display: block;
-                position: absolute;
-                bottom: 0;
-                right: 3rem;
-                opacity: 0;
-                z-index: 1;
-
-                p {
-                    line-height: 1;
-                    font-size: 14rem;
-                    font-weight: 700;
-                    color: $text-color;
-                    text-shadow: 3px 5px 5px rgba(0,0,0, 0.5);
-                    @include mq(1200px) {
-                        font-size: 18rem;
-                    }
-                }
-            }
-        }
-
-        &--over {
-            position: relative;
-            overflow: hidden;
-            
-            .image__cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            &:nth-child(3) {
                 width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                &:nth-child(3) {
-                    width: 100%;
-                    background-color: $img-overlay-color;
-                    display: none;
-                }
-                &:nth-child(2) {
-                    width: 100%;
-                    background-color: $primary-color;
-                    z-index: 4;
-                    transform: scaleX(0);
-                    transform-origin: left center;
-                }
+                background-color: $img-overlay-color;
+                display: none;
+            }
+            &:nth-child(2) {
+                width: 100%;
+                background-color: $primary-color;
+                z-index: 4;
+                transform: scaleX(0);
+                transform-origin: left center;
             }
         }
     }
+}
 
 @include mq(768px) {
     .container {
