@@ -1,0 +1,18 @@
+.follower {
+    display: none;
+    @include mq(800px) {
+        pointer-events: none;
+        display: block;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: $primary-color;
+        mix-blend-mode: difference;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100000;
+        transition: all 200ms linear;
+    }
+}
+

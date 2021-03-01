@@ -4,8 +4,7 @@ import Parallax from  './parallax.js';
 import fullpage from '../vendors/fullpage.js';
 import barba from '@barba/core';
 import { closeMenu, revealImage, slideFromLeft, leavePage, enterPage, slideFromRight, imageToSection, pageTransition } from './animations.js';
-import { removeClasses } from './utils.js';
-
+import CursorFollower from './CursorFollower';
 
 
 import '../sass/style.scss';
@@ -19,6 +18,8 @@ let moonParallax = new Parallax({
     wrapper: '.js-parallax-moon',
     layers: '.moon__layer',
 });
+
+let follower = new CursorFollower();
 
 // Initialize fullpage js
 function fullpageInit() {
@@ -65,10 +66,6 @@ function fullpageInit() {
     });
 }
 
-fullpageInit();
-console.log('After init: ', fullpageVar)
-
-
 // If user goes to the same page than prevent default and just show transition
 const links = document.querySelectorAll('a[href]');
 const cbk = function(e) {
@@ -112,6 +109,8 @@ barba.init({
                         fullpageVar.destroy('all');
                         fullpageVar = null;
                     }
+                    follower.destroy();
+
                 });
             },
 
@@ -123,9 +122,11 @@ barba.init({
                         layers: '.moon__layer',
                      });
                 }
+                follower = new CursorFollower();
             }
         },
     ]
 });
 
 
+fullpageInit();

@@ -34,6 +34,12 @@ img {
     max-width: 100%;
 }
 
+// a:hover,
+// input:hover,
+// button:hover,
+// .btn:hover;
+
+
 .container {
     width: 100%;
     max-width: 1400px;
@@ -261,6 +267,12 @@ img {
         @include mq(900px) {
             font-size: 12rem;
         }
+        @include mq(1600px) {
+            font-size: 16rem;
+        }
+        @include mq(1900px) {
+            font-size: 18rem;
+        }
     }
 }
 
@@ -278,6 +290,12 @@ img {
     width: 100%;
     height: 60%;
     margin-top: 6rem;
+
+    &--absolute {
+        position: absolute;
+        top: 0;
+        right: 0
+    }
 
     // @include mq(768px) {
     //     width: 70%;

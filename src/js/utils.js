@@ -16,4 +16,12 @@ const toggleClasses = (el, classes) => {
 	});
 }
 
-export { addClasses, removeClasses, toggleClasses };
+const elementsAddClasses = (els, classes) => {
+	els.forEach(el => {
+		classes.split(' ').forEach(className => {
+			el.classList.add(className);
+		})
+	})
+}
+
+export { addClasses, removeClasses, toggleClasses, elementsAddClasses };

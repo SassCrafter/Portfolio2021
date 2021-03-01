@@ -2,15 +2,18 @@
     padding: 0;
     width: 100%;
     overflow: hidden;
+    position: relative;
 
     .section__content {
         height: 100%;
+        position: relative;
     }
 
     .image {
         height: 100vh;
         margin-top: 0 !important;
         display: block;
+        
 
         img {
             opacity: 1;
@@ -24,6 +27,7 @@
 
     .title {
         top: 60%;
-
+        left: 0;
+        width: 100%;
     }
 }
